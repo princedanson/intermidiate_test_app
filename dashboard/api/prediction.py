@@ -10,8 +10,8 @@ import pandas as pd
 from dashboard.ml.service import predict
 
 
-#predict_api = FastAPI()
-predict_api = FastAPIOffline()
+predict_api = FastAPI()
+#predict_api = FastAPIOffline()
 class PredictionInput(BaseModel):
     #Model type
     Model_Type:str
