@@ -1,0 +1,76 @@
+body{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.container{
+    background-color: rgb(196, 231, 219);
+    box-sizing: border-box;
+    display: flow-root;
+    height:100% ;
+    
+}
+.heading{
+    justify-self:center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    width: 80%;
+    padding: 10px;
+    margin: 2px;
+    justify-items: center;
+}
+.heading p{
+    color: #756f6f;
+}
+.box{
+    display: flex;
+    width: 50%;
+    background-color: inherit;
+    justify-self: center;
+    justify-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    flex-direction: column;
+   
+}
+.data-box{
+    background-color: rgb(238, 245, 243);
+    display: block;
+    width: 100%;
+    height: auto; 
+    border-radius:4px;
+    padding: 5px;
+    outline: none;
+    box-shadow: 0 4px 12px 0 rgba(0,0, 0, 0.8);
+    justify-self: center;
+    justify-content: space-evenly;
+    justify-items: center;
+    box-sizing: border-box;
+}
+label{
+    font-size: 18px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+div input {
+    padding: 8px 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    margin: 6px 0 10px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+button{
+    padding: 5px 4px;
+    width: 25%;
+    box-sizing: border-box;
+    font-size: 18px;
+    border: 1px solid #cccccc;
+    margin: 4px 0 5px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+
+}

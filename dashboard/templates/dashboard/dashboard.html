@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <title>Dashboad</title>
+
+</head>
+<body> 
+    {% csrf_token %}
+    
+    <script>
+        const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        document.addEventListener("DOMContentLoaded",()=>{
+            const Btns = document.querySelectorAll(' .action input');
+            Btns.forEach(Btn => {
+                if(Btn){
+                        Btn.addEventListener("click",async (event) =>{
+                            event.preventDefault()
+                            try{
+                                    console.log(Btn.value)
+                                    const Btn_res = await fetch("/dashboard/save_data",{
+                                        method:'POST',
+                                        headers:{"Content-Type": "application/json","X-CSRFToken":csrf},
+                                        body: JSON.stringify(Btn.value)
+                                    });
+                            const errormsg = document.getElementById("error-message-save");
+                            errormsg.innerText=''
+                            if(!Btn_res.ok ){
+                                Btn_response = await Btn_res.json();
+                           
+                                if (errormsg){
+                                errormsg.innerHTML =`<span style="color:red;">${Btn_response.error}</span>`
+                                alert(`Something went wrong ${Btn_response.error}`)
+                            }
+                            throw new Error(Btn_response.error)
+                            }
+                            } catch(error){
+                                console.error("Error during prediction",error)
+                                
+                            }
+                        });
+            }
+        });        
+    });
+        document.addEventListener("DOMContentLoaded",()=>{
+            const runButton =  document.getElementById("submit_model");
+            if (runButton){
+                runButton.addEventListener('click',async () => {
+                    const data = {
+                                    ...Object.fromEntries(new FormData(document.getElementById("model_data"))),
+                                    ...Object.fromEntries(new FormData(document.getElementById('model_type')))
+                    };
+                    try {
+                            const res = await fetch('/dashboard/',{
+                                method:'POST',
+                                headers:{'Content-Type' : 'application/json',
+                                        'X-CSRFToken':csrf
+                                },
+                                body: JSON.stringify(data),
+                                
+                                        });
+                    const errormsg = document.getElementById("error-message");
+                    errormsg.innerText=''
+                    const responsedata = await res.json();
+                    if (!res.ok)//;
+                        {
+                           
+                            if (errormsg){
+                                errormsg.innerHTML =`<span style="color:red;">${responsedata.error}</span>`
+                                alert(`Something went wrong ${responsedata.error}`)
+                            }
+                            throw new Error(responsedata.error)
+                        } 
+                        
+                        const prediction = document.getElementById('prediction');
+                        const confidence_level = document.getElementById("confidence_level");
+
+                        prediction.textContent = responsedata.result || JSON.stringify(responsedata);
+                        if (responsedata.probability !== undefined){
+                            confidence_level.textContent = (responsedata.probability ) + '%';
+                        } 
+                        
+
+                        if (responsedata.result== "Rejected"){
+                            prediction.style.color = "Red";
+                        } 
+                        else if(responsedata.result == "Approved")
+                        {
+                            prediction.style.color = "Green";
+                        }
+                        else {
+                            prediction.style.color = "Orange";
+                        }
+                       
+                    } catch (error){
+                        console.error(error,error)
+                        //alert(`Something went wrong \${error.message} `)
+                    }
+                    
+                });
+            }
+        });
+    </script>
+    <div class="container">
+        <div class="heading">
+            {% if user.is_authenticated %}
+            <a href="{% url 'account:logout' %}">Logout</a>
+
+            <h2>{{user.first_name}} Loan approval prediction </h2>
+            {% else %}
+            <a href="{% url 'account:login' %}">Login</a>
+            <h2>Loan approval prediction</h2>
+            <p> Enter the applicant detials, choose a model, read outcome</p>
+            {% endif %}
+        </div>
+        <div class="box">
+            <div class="data-box">
+                <div class="title">
+                    <h2>Application Data</h2>
+                    <p>Enter the applicant details 
+                                <span id="error-message"></span>
+                                 </p>
+                </div>
+                <div class="data">
+                    <form action="" method="" id="model_data">
+                       
+                        <div class="info">
+                            <div>
+                                <label for="gender"> Gender</label><br>
+                                <select name="gender" id="gender">
+                                    <option value="Male"> Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="married">Married</label><br>
+                                <select name="married" id="married">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="gender">Dependent</label><br>
+                                <select name="dependents" id="dependent">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="education"> Education</label><br>
+                                <select name="education" id="education">
+                                    <option value="Graduate">Graduate</option>
+                                    <option value="Not Graduate">Not Graduate</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="self_employed">Self Employed</label><br>
+                                <select name="self_employed" id="self_employed">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="area">Property area</label><br>
+                                <select name="property area" id="property area">
+                                    <option value="Urban">Urban</option>
+                                    <option value="Rural">Rural</option>
+                                    <option value="Semiurban">Semi-Urban</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label for="applicantIncome">Application Income</label><br>
+                                <input type="number" name="ApplicationIncome" id="applicationIncome"/>
+                             </div>
+                              <div>
+                                <label for="CoapplicantIncome">Coapplicant Income</label><br>
+                                <input type="number" name="CoapplicantIncome" id="CoapplicantIncome"/>
+                             </div>
+                              <div>
+                                <label for="loan_amount ">Loan amount</label><br>
+                                <input type="number" name="LoanAmount" id="loan_amount"/>
+                             </div>
+                             <div>
+                                <label for="loan_amount_term">Loan Amount Term </label><br>
+                                <input type="number" name="Loan_Amount_Term" id="loan_amount_term"/>
+                             </div>
+                             <div>
+                                <label for="credit_history ">Credit History</label><br>
+                                <input type="number" name="Credit_History" id="credit_history"/>
+                             </div>
+
+                                                                                                                
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="model">
+                <div class="model-box">
+                    <div class="model_headings">
+                        <h2>Model</h2>
+                        <p>Choose a training model</p>
+                    </div>
+                    <div class="form_model">
+                        
+                            <div>
+                                <form action="" id="model_type">
+                                <label for="model">Select Model</label><br>
+                                <select name="model" id="model">
+                                    <option value="Logistic Regression">Logist Regression</option>
+                                    <option value="Random Forest">Random forest</option>
+                                    <option value="Decision Tree">Decision Tree</option>
+                                    <option value="Gradient Boosting">Gradient Boosting</option>
+                                    <option value="Bayes Multinominal">Bayes Multinominal</option>
+                                    <option value="XGBoost">XGBoost</option>
+                                    <option value="SVC">SVC </option>
+                                    <option value="KNN">KNeighbors</option>
+                                </select>
+                            </div>
+                            <div>
+                                
+                            </form>
+                                <input type="button" value="Run Prediction" id="submit_model">
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="outcome-box">
+                    <div class="outcome-mini">
+                        <div >
+                            <h2>Outome</h2>
+                        </div>
+                        <div class="status">
+                            <div class="predict">
+                                <p>Predicted loan status</p>
+                                <h2 id="prediction"></h2>
+                            </div>
+                            <div class="confi" >
+                                <p >Confidence</p>
+                                <h2 id="confidence_level"></h2>
+                            </div>
+                        </div>
+                        
+                            <form action="">
+                                <div class="action">
+                                <input type="submit" class='Btn' value="Save">
+                                <input type="submit" class="Btn" value="Clear">
+                                </div>
+                                <div id="error-message-save";"></div>
+                            </form>
+                          
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

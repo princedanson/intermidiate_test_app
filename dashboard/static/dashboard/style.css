@@ -1,0 +1,208 @@
+body{
+    margin: 0;
+    box-sizing: border-box;
+     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     background-color: rgb(196, 231, 219);
+}
+.container{
+    background-color: rgb(196, 231, 219);
+    box-sizing: border-box;
+    display: flow-root;
+    height: 100vh;
+    
+}
+.heading{
+    justify-self:center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    width: 90%;
+    padding: 10px;
+    margin: 2px;
+}
+.heading p{
+    color: #756f6f;
+}
+.box{
+    display: flex;
+    width: 90%;
+    background-color: inherit;
+    justify-self: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+   
+}
+.data-box{
+    background-color: rgb(238, 245, 243);
+    display: block;
+    width: 58%;
+    height: auto; 
+    border-radius:4px;
+    padding: 5px;
+    outline: none;
+    box-shadow: 0 4px 12px 0 rgba(0,0, 0, 0.8);
+}
+
+.title{
+    margin: 10px;
+}
+.title h2, .title p{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.data .info{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    gap: 20px;
+    width: 100%;
+    padding: 0 1px 0 10px ;
+    box-sizing: border-box;
+    background-color: rgb(238, 245, 243);
+
+}
+.info div{
+    width: calc(33.33% - 13.33px);
+    box-sizing: border-box;
+    
+}
+
+.info div select,
+.info div input{
+    padding: 5px 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    margin: 6px 0 10px;
+    border-radius: 5px;
+    outline: none;
+
+}
+.model{
+   background-color:rgb(196, 231, 219);;
+    width: 38%;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.model > div{
+        background-color: rgb(238, 245, 243);
+        border-radius: 5px;
+        flex: 1;
+        padding: 0 6px 0;
+}
+.model-box,
+.outcome-box {
+    background-color: rgb(238, 245, 243);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.model-box {
+    min-height: 250px;
+}
+
+.outcome-box {
+    min-height: 250px;
+}
+.model-box div,.outcome-box div{
+    height:auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.model_headings {
+    height: 10px;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.model_headings   p{
+    color: #756f6f;
+}
+.model-box,.outcome-box{
+    flex:1;
+    width:100%;
+}
+.form_model{
+    width: 100%;
+}
+
+.form_model div select,
+.form_model div input {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    margin: 6px 0 10px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.form_model input{
+    background-color: rgb(136, 136, 235);
+}
+.outcome-box{
+    display: block;background-color: blue;
+}
+.outcome-box {
+    background-color: rgb(238, 245, 243);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    flex: 1;
+    width: 100%;
+}
+
+.outcome-mini {
+    width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+
+}
+.status{
+    display: flex;
+    justify-content: space-between;
+    background-color: #756f6f;
+    border-radius: 4px;
+    padding: 5px;
+}
+.status .predict{
+    flex: 3;
+}
+.status .confi{
+    flex: 1;
+    justify-items: center;
+}
+.action{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 5px;
+    gap: 8px;
+    width: 100%;
+    padding: 15px 0 15px ;
+    box-sizing: border-box;
+    background-color: rgb(238, 245, 243);
+
+}
+.action  input[type='submit']{ 
+    flex: 1;
+    padding: 10px 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    margin: 4px 0 5px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.action input[type='submit']:nth-child(1){
+    border: 1px rgb(67, 67, 150) solid;
+    overlay: none;
+}
+.action input[type='submit']:nth-child(2){
+    border: 1px rgb(26, 26, 58) solid;
+    overlay: none;
+}
