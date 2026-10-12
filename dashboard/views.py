@@ -95,7 +95,7 @@ def save_data(request):
                 data = request.session.get('model_info',{})
                 data.pop('selected')
                 try:
-                    save_to_dataset = datasets.objects.create(user= random.choice(string.ascii_letter + string.digits)+(request.user),**data)
+                    save_to_dataset = datasets.objects.create(user= random.choice(string.ascii_lowercase)+(request.user),**data)
                     save_to_dataset.save()
                     print(f"Successfully saved record ID {save_to_dataset.user} to database")
                     request.session['savable'] = False
