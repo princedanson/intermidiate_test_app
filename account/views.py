@@ -48,8 +48,8 @@ def create_account(request):
             return render(request,"account/create.html",{
                           "error":"Email already exist!"})
         user = User.objects.create_user(username=username, email=email, password=password,first_name=first_name, last_name=last_name)
-        user.save()
+        
         print("User Saved!")
-        return redirect('login')
+        return redirect('account:login')
     else:
         return render(request, "account/create.html", {"title": "Create Account"})   
