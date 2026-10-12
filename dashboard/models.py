@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 class datasets(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='predictions')
-    Loan_ID = models.EmailField(max_length=50,unique=True)
+    Loan_ID = models.EmailField(max_length=50)
     Model_Type = models.CharField()
     Gender = models.CharField()
     Married = models.CharField()
