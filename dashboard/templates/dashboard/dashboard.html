@@ -26,22 +26,25 @@
                                         headers:{"Content-Type": "application/json","X-CSRFToken":csrf},
                                         body: JSON.stringify(Btn.value)
                                     });
-                            const errormsg = document.getElementById("error-message-save"); 
-                            const Btn_response = await Btn_res.json();
-                            errormsg.textContent = Btn_response.status || JSON.stringify(Btn_response);
-                            if (Btn_response.status == "SUCCESS"){
-                                errormsg.innerHTML =`<span style="color:green;">${Btn_response.message}</span>`
-                                alert(`${Btn_response.message}`)
-                                } 
-                            errormsg.innerText=''
-                            if(!Btn_res.ok ){
+                                    const errormsg = document.getElementById("error-message-save"); 
+                                    const Btn_response = await Btn_res.json();
+
+                                    if(!Btn_res.ok ){
                                
-                                if (errormsg){
-                                errormsg.innerHTML =`<span style="color:red;">${Btn_response.error}</span>`
-                                alert(`Something went wrong ${Btn_response.error}`)
-                            }
-                            throw new Error(Btn_response.error)
-                            }
+                                    if (errormsg){
+                                            errormsg.innerHTML =`<span style="color:red;">${Btn_response.error}</span>`
+                                            alert(`Something went wrong ${Btn_response.error}`)
+                                    }
+                                    throw new Error(Btn_response.error)
+                                }
+                                errormsg.innerText=''
+                            
+                                    errormsg.textContent = Btn_response.status || JSON.stringify(Btn_response);
+                                    if (Btn_response.status == "SUCCESS"){
+                                        errormsg.innerHTML =`<span style="color:green;">${Btn_response.message}</span>`
+                                        alert(`${Btn_response.message}`)
+                                        } 
+                                    
                             } catch(error){
                                 console.error("Error during prediction",error)
                                 
