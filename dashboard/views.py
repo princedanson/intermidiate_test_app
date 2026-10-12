@@ -5,7 +5,8 @@ import json
 import requests
 from .models import datasets
 
-PREDICT_API = "http://127.0.0.1:8080/predict"
+PORT = os.environ.get("PORT", "8000")
+PREDICT_API = f"http://127.0.0.1:{PORT}/api/predict"
 payload:dict = {str:str|int}
 
 
