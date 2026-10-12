@@ -95,6 +95,7 @@ def save_data(request):
                 print(request.session.get('model_info'))
                 data = request.session.get('model_info',{})
                 data.pop('selected') 
+                data.pop('Loan_ID')
                 loan_id = f"{get_random_string(6)}-{request.user.username}"[:50]
                 try:
                     save_to_dataset = datasets.objects.create(user= request.user,Loan_ID =loan_id,**data)
