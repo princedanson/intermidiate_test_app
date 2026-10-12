@@ -3,6 +3,7 @@ from django.http    import JsonResponse
 from django.contrib.auth.decorators import login_required
 import json,os
 import requests,random,string
+from django.utils.crypto import get_random_string
 from .models import datasets
 
 PORT = os.environ.get("PORT", "8000")
@@ -93,9 +94,10 @@ def save_data(request):
             if body_data :
                 print(request.session.get('model_info'))
                 data = request.session.get('model_info',{})
-                data.pop('selected')
+                data.pop('selected') 
+                loan_id = f"{get_random_string(6)}-{request.user.username}"[:50]
                 try:
-                    save_to_dataset = datasets.objects.create(user= random.choice(string.ascii_lowercase)+(request.user),**data)
+                    save_to_dataset = datasets.objects.create(user= request.user,Loan_ID =loan_id,**data)
                     save_to_dataset.save()
                     print(f"Successfully saved record ID {save_to_dataset.user} to database")
                     request.session['savable'] = False
