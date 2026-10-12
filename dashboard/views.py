@@ -76,7 +76,7 @@ def dashboard(request):
                            "result":result,
                            "probability":probability})
      
-    return render(request,"Dashboard/dashboard.html",
+    return render(request,"dashboard/dashboard.html",
                   {"title": "Dashboard"})
 
 def save_data(request):
