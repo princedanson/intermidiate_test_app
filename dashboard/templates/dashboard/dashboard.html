@@ -31,7 +31,7 @@
 
                                     if(!Btn_res.ok ){
                                
-                                    if (errormsg){
+                                    if (errormsg || Btn_response.error ){
                                             errormsg.innerHTML =`<span style="color:red;">${Btn_response.error}</span>`
                                             alert(`Something went wrong ${Btn_response.error}`)
                                     }
