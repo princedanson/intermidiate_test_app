@@ -27,7 +27,7 @@
                                         body: JSON.stringify(Btn.value)
                                     });
                             const errormsg = document.getElementById("error-message-save"); 
-                            Btn_response = await Btn_res.json();
+                            const Btn_response = await Btn_res.json();
                             errormsg.textContent = Btn_response.status || JSON.stringify(Btn_response);
                             if (Btn_response.status == "SUCCESS"){
                                 errormsg.innerHTML =`<span style="color:green;">${Btn_response.message}</span>`
