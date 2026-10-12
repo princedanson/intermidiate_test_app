@@ -27,22 +27,28 @@
                                         body: JSON.stringify(Btn.value)
                                     });
                                     const errormsg = document.getElementById("error-message-save"); 
-                                    const Btn_response = await Btn_res.json();
-
+                                    let Btn_response = null
+                                    try{
+                                         Btn_response = await Btn_res.json();
+                                    }
+                                    catch (e){}
                                     if(!Btn_res.ok ){
-                               
-                                    if (errormsg || Btn_response.error ){
+                                        const msg = (Btn_response && Btn_response.error) || `Server error ${Btn_res.status}`;
+                                    if (errormsg  ){
                                             errormsg.innerHTML =`<span style="color:red;">${Btn_response.error}</span>`
-                                            alert(`Something went wrong ${Btn_response.error}`)
+                                            alert(`Something went wrong ${msg}`)
+                                            return
                                     }
                                     throw new Error(Btn_response.error)
                                 }
-                                errormsg.innerText=''
+                               
                             
                                     errormsg.textContent = Btn_response.status || JSON.stringify(Btn_response);
-                                    if (Btn_response.status == "SUCCESS"){
-                                        errormsg.innerHTML =`<span style="color:green;">${Btn_response.message}</span>`
-                                        alert(`${Btn_response.message}`)
+                                    if (Btn_response && Btn_response.status === "SUCCESS"){
+                                        if(errormsg){
+                                                 errormsg.innerHTML =`<span style="color:green;">${Btn_response.message}</span>`
+                                                alert(`${Btn_response.message}`)
+                                                }
                                         } 
                                     
                             } catch(error){

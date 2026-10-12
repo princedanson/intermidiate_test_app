@@ -105,7 +105,7 @@ def save_data(request):
                     return JsonResponse({"status":"SUCCESS","message":"Data Saved!"}, status = 200)
                 except Exception as database_error:
                     print("Database save Failure",str(database_error))
-                    return JsonResponse({'error':"Cant Save Entries!"})
+                    return JsonResponse({'error':"Cant Save Entries!",'satus':"failed"})
             
     return render(request,"Dashboard/dashboard.html",{
         "Save":"saved",
